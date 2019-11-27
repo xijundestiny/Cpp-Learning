@@ -12,6 +12,7 @@
 #include <map>
 #include <set>
 #include <iterator>
+#include <typeinfo>
 
 #include "solution.h" 
 #include "pri.h"
@@ -22,11 +23,11 @@
 #include "Book.h"
 #include "Fibonacci.h"
 
+
 using namespace std;
 
 inline void display(const vector<int> &vec, ostream &file = cout);
-
-
+inline void display(const num_sequence &ns, int pos, ostream &os = cout);
 
 enum {
 	ns_prin,ns_prin1
@@ -86,7 +87,12 @@ int main(){
 	
 	vector<int> vec1({6,4,3,1,5,7,1,4,7,8,9});
 	Fibonacci fib(4,3);
+	num_sequence *p = &fib;
+	if (typeid(*p)== typeid(Fibonacci)) {
+		cout << "is Fibonacci!" << endl;
+	}
 	cout << fib << endl;
+	display(fib,3);
 	cout << "run time is " << (double)clock()/CLK_TCK <<"s"<< endl;
 	system("pause");
 	return 0;
@@ -97,5 +103,10 @@ inline void display(const vector<int> &vec, ostream &file) {
 		file << vec[i] << " ";
 	}
 	file << endl;
+}
+
+inline void display(const num_sequence &ns,int pos, ostream &os) {
+	os << "The element at position " << pos << " for the " << 
+		ns.what_am_i() << " sequence is " << ns.elem(pos) << endl;
 }
 
